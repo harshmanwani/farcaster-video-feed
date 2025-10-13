@@ -189,7 +189,6 @@ export default function VideoPlayer({ video, isActive, isMuted, onTogglePlay }: 
       {hasError && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/80">
           <div className="text-center text-white">
-            <div className="text-4xl mb-2">⚠️</div>
             <p className="mb-4">Unable to load video</p>
             <button
               onClick={handleRetry}

@@ -167,18 +167,20 @@ export default function VideoPlayer({ video, isActive, isMuted, onTogglePlay }: 
   };
 
   return (
-    <div className="absolute inset-0 bg-black" onClick={handleClick}>
-      <video
-        ref={videoRef}
-        className="w-full h-full object-contain"
-        loop
-        playsInline
-        preload="metadata"
-        poster={video.posterUrl}
-        onLoadStart={handleLoadStart}
-        onCanPlay={handleCanPlay}
-        onError={handleError}
-      />
+    <div className="absolute inset-0 bg-black pointer-events-none">
+      <div className="absolute inset-0 pointer-events-auto" onClick={handleClick}>
+        <video
+          ref={videoRef}
+          className="w-full h-full object-contain"
+          loop
+          playsInline
+          preload="metadata"
+          poster={video.posterUrl}
+          onLoadStart={handleLoadStart}
+          onCanPlay={handleCanPlay}
+          onError={handleError}
+        />
+      </div>
 
       {isLoading && !hasError && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/50 pointer-events-none">
@@ -187,7 +189,7 @@ export default function VideoPlayer({ video, isActive, isMuted, onTogglePlay }: 
       )}
 
       {hasError && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/80">
+        <div className="absolute inset-0 flex items-center justify-center bg-black/80 pointer-events-auto">
           <div className="text-center text-white">
             <p className="mb-4">Unable to load video</p>
             <button

@@ -20,7 +20,7 @@ export default async function Home() {
     }
 
     return (
-      <main className="h-screen w-screen overflow-hidden bg-black">
+      <main className="h-screen w-screen overflow-hidden bg-white">
         <div suppressHydrationWarning className="absolute inset-0">
           <StaticVideoCard video={videos[0]} />
         </div>

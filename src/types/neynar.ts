@@ -95,3 +95,29 @@ export interface VideoFeedItem {
   timestamp: string;
 }
 
+export interface NeynarChannel {
+  id: string;
+  url: string;
+  name: string;
+  description: string;
+  image_url: string;
+  parent_url: string;
+  follower_count: number;
+  member_count: number;
+}
+
+export interface NeynarChannelActivity {
+  object: string;
+  cast_count_1d: string;
+  cast_count_7d: string;
+  cast_count_30d: string;
+  channel: NeynarChannel;
+}
+
+export interface NeynarTrendingChannelsResponse {
+  channels: NeynarChannelActivity[];
+  next: {
+    cursor: string | null;
+  };
+}
+

@@ -27,26 +27,16 @@ export default async function Home() {
         <VideoFeed initialVideos={videos} initialCursor={nextCursor} />
       </main>
     );
-  } catch {
+  } catch (error) {
+    console.error('Error fetching video feed:', error);
     return (
       <div className="flex items-center justify-center h-screen bg-black text-white">
         <div className="text-center px-4">
-          <h1 className="text-2xl mb-4">Configuration Required</h1>
-          <p className="text-gray-400 mb-2">Please add your Neynar API key to .env.local:</p>
+          <h1 className="text-2xl mb-4">Error Loading Feed</h1>
+          <p className="text-gray-400 mb-2">There was an error loading the video feed:</p>
           <code className="bg-gray-800 px-4 py-2 rounded block text-sm">
-            NEYNAR_API_KEY=your_api_key_here
+            {error instanceof Error ? error.message : 'Unknown error'}
           </code>
-          <p className="text-sm text-gray-500 mt-4">
-            Get your API key from{' '}
-            <a 
-              href="https://neynar.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-blue-400 hover:underline"
-            >
-              neynar.com
-            </a>
-          </p>
         </div>
       </div>
     );

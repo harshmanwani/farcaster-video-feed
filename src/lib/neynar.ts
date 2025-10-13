@@ -1,22 +1,30 @@
-import { NeynarFeedResponse, VideoFeedItem, NeynarCast } from '@/types/neynar';
+import { NeynarFeedResponse, VideoFeedItem, NeynarCast, NeynarChannel } from '@/types/neynar';
 
 const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY || '';
 const NEYNAR_BASE_URL = 'https://api.neynar.com/v2';
 
-export async function fetchVideoFeed(cursor?: string | null): Promise<{
+export async function fetchVideoFeed(
+  cursor?: string | null,
+  feedType: 'trending' | 'following' = 'trending',
+  fid?: number
+): Promise<{
   videos: VideoFeedItem[];
   nextCursor: string | null;
 }> {
-  // Build URL with array parameter for embed_types
   const params = new URLSearchParams({
-    feed_type: 'filter',
-    filter_type: 'embed_types',
+    feed_type: feedType === 'trending' ? 'filter' : 'following',
     limit: '100',
     with_recasts: 'true',
   });
   
-  // Add embed_types as array parameter
-  params.append('embed_types', 'video');
+  if (feedType === 'trending') {
+    params.append('filter_type', 'embed_types');
+    params.append('embed_types', 'video');
+  }
+  
+  if (feedType === 'following' && fid) {
+    params.append('fid', fid.toString());
+  }
 
   if (cursor) {
     params.append('cursor', cursor);
@@ -39,7 +47,7 @@ export async function fetchVideoFeed(cursor?: string | null): Promise<{
   const videos = data.casts
     .filter(cast => hasVideoEmbed(cast))
     .map(cast => transformCastToVideo(cast))
-    .filter(video => video.videoUrl); // Only include videos with valid URLs
+    .filter(video => video.videoUrl);
 
   return {
     videos,
@@ -63,7 +71,6 @@ function getVideoUrl(cast: NeynarCast): string | null {
 }
 
 function getVideoPoster(cast: NeynarCast): string {
-  // No thumbnails in Neynar API, use author avatar as fallback
   return cast.author.pfp_url;
 }
 
@@ -88,3 +95,67 @@ function transformCastToVideo(cast: NeynarCast): VideoFeedItem {
   };
 }
 
+export async function fetchUserChannels(fid: number): Promise<NeynarChannel[]> {
+  const params = new URLSearchParams({
+    fid: fid.toString(),
+    limit: '100',
+  });
+
+  const response = await fetch(`${NEYNAR_BASE_URL}/farcaster/user/channels?${params}`, {
+    headers: {
+      'x-api-key': NEYNAR_API_KEY,
+    },
+    next: { revalidate: 300 },
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Neynar API error: ${response.status} - ${errorText}`);
+  }
+
+  const data: { channels: NeynarChannel[] } = await response.json();
+  return data.channels;
+}
+
+export async function fetchChannelVideoFeed(
+  parentUrl: string,
+  cursor?: string | null
+): Promise<{
+  videos: VideoFeedItem[];
+  nextCursor: string | null;
+}> {
+  const params = new URLSearchParams({
+    parent_urls: parentUrl,
+    with_recasts: 'true',
+    with_replies: 'false',
+    limit: '100',
+  });
+
+  if (cursor) {
+    params.append('cursor', cursor);
+  }
+
+  const response = await fetch(`${NEYNAR_BASE_URL}/farcaster/feed/parent_urls?${params}`, {
+    headers: {
+      'x-api-key': NEYNAR_API_KEY,
+    },
+    next: { revalidate: 60 },
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Neynar API error: ${response.status} - ${errorText}`);
+  }
+
+  const data: NeynarFeedResponse = await response.json();
+
+  const videos = data.casts
+    .filter(cast => hasVideoEmbed(cast))
+    .map(cast => transformCastToVideo(cast))
+    .filter(video => video.videoUrl);
+
+  return {
+    videos,
+    nextCursor: data.next.cursor,
+  };
+}

@@ -12,9 +12,10 @@ npm install
 Create a `.env.local` file:
 ```bash
 NEYNAR_API_KEY=your_key_here
+NEXT_PUBLIC_NEYNAR_CLIENT_ID=your_client_id_here
 ```
 
-Get your API key from [neynar.com](https://neynar.com).
+Get your API key and client ID from [neynar.com](https://neynar.com).
 
 Run the development server:
 ```bash
@@ -27,10 +28,13 @@ Open [http://localhost:3000](http://localhost:3000).
 
 - **Mobile-optimized** - Swipe vertically through videos, tap to play/pause
 - **Desktop support** - Responsive layout with centered video player
-- **Video playback** - HLS streaming support for `.m3u8` videos
+- **Video playback** - HLS streaming with adaptive quality
 - **Smooth scrolling** - 60fps performance with virtualization
 - **SSR** - First video renders server-side for instant loading
 - **Error handling** - Graceful fallbacks for failed videos
+- **Farcaster auth** - Sign in with Neynar to connect your account
+- **Saved preferences** - Mute state persists across sessions
+- **Channel selector** - Switch between Trending and Following feeds
 
 ## Architecture
 

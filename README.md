@@ -107,8 +107,6 @@ The app maintains:
 **60s+ Scroll Performance Trace:**
 ![Performance Full](reports/performance-full.png)
 
-**Full Interactive Report:** [`lighthouse-report-4x-slowed-mobile.html`](https://github.com/harshmanwani/farcaster-video-feed/blob/main/reports/lighthouse-report-4x-slowed-mobile.html)
-
 ### Performance Analysis
 
 **Bottleneck Found**: Render-blocking external fonts and unoptimized images slowing initial load (LCP: 4.5s -> 3.0s)

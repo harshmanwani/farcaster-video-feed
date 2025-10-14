@@ -91,11 +91,18 @@ The app maintains:
 - TBT: 40ms
 - CLS: 0
 
-Screenshots and full reports in `./reports/`:
-- `lighthouse-score.png` - Overall performance score
-- `lighthouse-info.png` - Detailed metrics
-- `performance-full.png` - 60s+ scroll trace
-- `lighthouse-report-4x-slowed-mobile.html` - Full interactive report
+#### Performance Screenshots
+
+**Overall Performance Score:**
+![Lighthouse Score](reports/lighthouse-score.png)
+
+**Detailed Metrics:**
+![Lighthouse Info](reports/lighthouse-info.png)
+
+**60s+ Scroll Performance Trace:**
+![Performance Full](reports/performance-full.png)
+
+**Full Interactive Report:** [`lighthouse-report-4x-slowed-mobile.html`](https://github.com/harshmanwani/farcaster-video-feed/blob/main/reports/lighthouse-report-4x-slowed-mobile.html)
 
 ### Performance Analysis
 
@@ -111,9 +118,9 @@ Screenshots and full reports in `./reports/`:
 
 ## Demo
 
-**Mobile**: See `./demo/mobile.mp4` - Native swipe gestures with smooth scrolling
+**Mobile**: See [`./demo/mobile.mp4`](https://github.com/harshmanwani/farcaster-video-feed/blob/main/demo/mobile.mp4) - Native swipe gestures with smooth scrolling
 
-**Desktop**: See `./demo/desktop.mov` - Responsive layout with centered video player
+**Desktop**: See [`./demo/desktop.mp4`](https://github.com/harshmanwani/farcaster-video-feed/blob/main/demo/desktop.mp4) - Responsive layout with centered video player
 
 ## API Usage
 

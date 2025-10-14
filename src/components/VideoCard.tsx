@@ -55,6 +55,9 @@ export default function VideoCard({ video, isActive, isMuted, onTogglePlay }: Vi
                 width={48}
                 height={48}
                 className="w-full h-full object-cover"
+                sizes="48px"
+                loading="lazy"
+                quality={85}
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-white text-xl font-bold">

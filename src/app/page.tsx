@@ -3,6 +3,7 @@ import VideoFeed from '@/components/VideoFeed';
 import StaticVideoCard from '@/components/StaticVideoCard';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export default async function Home() {
   try {

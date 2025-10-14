@@ -30,6 +30,18 @@ export default function StaticVideoCard({ video }: StaticVideoCardProps) {
         >
           <source src={video.videoUrl} type="video/mp4" />
         </video>
+        {video.posterUrl && (
+          <Image
+            src={video.posterUrl}
+            alt="Video poster"
+            fill
+            className="object-contain"
+            priority
+            fetchPriority="high"
+            sizes="(max-width: 768px) 100vw, 600px"
+            quality={85}
+          />
+        )}
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 p-4 pb-20 lg:pb-4 bg-gradient-to-t from-black/60 to-transparent pointer-events-none">
@@ -55,6 +67,8 @@ export default function StaticVideoCard({ video }: StaticVideoCardProps) {
                 width={48}
                 height={48}
                 className="w-full h-full object-cover"
+                sizes="48px"
+                loading="eager"
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-white text-xl font-bold">

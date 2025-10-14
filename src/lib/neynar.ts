@@ -3,6 +3,17 @@ import { NeynarFeedResponse, VideoFeedItem, NeynarCast, NeynarChannel } from '@/
 const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY || '';
 const NEYNAR_BASE_URL = 'https://api.neynar.com/v2';
 
+// Optimize Cloudflare imagedelivery URLs with proper sizing
+function optimizeImageUrl(url: string, width = 828): string {
+  if (!url) return url;
+  
+  if (url.includes('imagedelivery.net')) {
+    return url.replace(/\/[^/]+$/, `/width=${width},quality=85,format=auto`);
+  }
+  
+  return url;
+}
+
 export async function fetchVideoFeed(
   cursor?: string | null,
   feedType: 'trending' | 'following' = 'trending',
@@ -71,7 +82,7 @@ function getVideoUrl(cast: NeynarCast): string | null {
 }
 
 function getVideoPoster(cast: NeynarCast): string {
-  return cast.author.pfp_url;
+  return optimizeImageUrl(cast.author.pfp_url, 828);
 }
 
 function transformCastToVideo(cast: NeynarCast): VideoFeedItem {
@@ -82,7 +93,7 @@ function transformCastToVideo(cast: NeynarCast): VideoFeedItem {
     author: {
       username: cast.author.username,
       displayName: cast.author.display_name,
-      avatarUrl: cast.author.pfp_url,
+      avatarUrl: optimizeImageUrl(cast.author.pfp_url, 96),
       fid: cast.author.fid,
     },
     text: cast.text,

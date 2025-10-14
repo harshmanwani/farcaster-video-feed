@@ -99,6 +99,11 @@ The app maintains:
 **Detailed Metrics:**
 ![Lighthouse Info](reports/lighthouse-info.png)
 
+**Performance Traces:**
+
+**Start Performance:**
+![Performance Start](reports/performance-start.png)
+
 **60s+ Scroll Performance Trace:**
 ![Performance Full](reports/performance-full.png)
 
@@ -118,9 +123,11 @@ The app maintains:
 
 ## Demo
 
-**Mobile**: See [`./demo/mobile.mp4`](https://github.com/harshmanwani/farcaster-video-feed/blob/main/demo/mobile.mp4) - Native swipe gestures with smooth scrolling
+**Mobile Demo - Native swipe gestures with smooth scrolling:**
+https://github.com/harshmanwani/farcaster-video-feed/blob/main/demo/mobile.mp4
 
-**Desktop**: See [`./demo/desktop.mp4`](https://github.com/harshmanwani/farcaster-video-feed/blob/main/demo/desktop.mp4) - Responsive layout with centered video player
+**Desktop Demo - Responsive layout with centered video player:**
+https://github.com/harshmanwani/farcaster-video-feed/blob/main/demo/desktop.mp4
 
 ## API Usage
 

@@ -83,6 +83,38 @@ The app maintains:
 - Stable memory usage (no leaks)
 - Small bundle size with tree-shaking
 
+### Performance Reports
+
+**Lighthouse Score (Mobile, 4× CPU Throttling)**: 95/100
+- FCP: 0.9s
+- LCP: 3.0s
+- TBT: 40ms
+- CLS: 0
+
+Screenshots and full reports in `./reports/`:
+- `lighthouse-score.png` - Overall performance score
+- `lighthouse-info.png` - Detailed metrics
+- `performance-full.png` - 60s+ scroll trace
+- `lighthouse-report-4x-slowed-mobile.html` - Full interactive report
+
+### Performance Analysis
+
+**Bottleneck Found**: Render-blocking external fonts and unoptimized images slowing initial load (LCP: 4.5s -> 3.0s)
+
+**Solution**: 
+1. Removed Google Fonts, switched to system fonts (-150ms)
+2. Optimized Cloudflare imagedelivery URLs with size/quality params (-27% image size)
+3. Added `.browserslistrc` for modern browsers to remove 13 KiB polyfills
+4. Enabled package import optimization for better tree-shaking
+
+**Result**: Performance improved from ~80 baseline to 90/100 with smooth 60fps scrolling and stable memory during extended sessions.
+
+## Demo
+
+**Mobile**: See `./demo/mobile.mp4` - Native swipe gestures with smooth scrolling
+
+**Desktop**: See `./demo/desktop.mov` - Responsive layout with centered video player
+
 ## API Usage
 
 Videos are fetched using Neynar's feed endpoint with the `embed_types=video` filter:

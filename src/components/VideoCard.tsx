@@ -2,6 +2,7 @@
 
 import { VideoFeedItem } from '@/types/neynar';
 import VideoPlayer from './VideoPlayer';
+import VolumeControl from './VolumeControl';
 import Image from 'next/image';
 import { Heart, MessageCircle, Share2 } from 'lucide-react';
 
@@ -10,6 +11,7 @@ interface VideoCardProps {
   isActive: boolean;
   isMuted: boolean;
   onTogglePlay?: () => void;
+  onToggleMute?: () => void;
 }
 
 function formatCount(count: number): string {
@@ -22,7 +24,7 @@ function formatCount(count: number): string {
   return count.toString();
 }
 
-export default function VideoCard({ video, isActive, isMuted, onTogglePlay }: VideoCardProps) {
+export default function VideoCard({ video, isActive, isMuted, onTogglePlay, onToggleMute }: VideoCardProps) {
   return (
     <div className="relative w-full h-full bg-black">
       <VideoPlayer
@@ -31,6 +33,12 @@ export default function VideoCard({ video, isActive, isMuted, onTogglePlay }: Vi
         isMuted={isMuted}
         onTogglePlay={onTogglePlay}
       />
+
+      {onToggleMute && (
+        <div className="absolute top-4 left-4 z-10">
+          <VolumeControl isMuted={isMuted} onToggle={onToggleMute} />
+        </div>
+      )}
 
       <div className="absolute bottom-0 left-0 right-0 p-4 pb-20 lg:pb-4 bg-gradient-to-t from-black/60 to-transparent pointer-events-none">
         <div className="flex items-end gap-4">

@@ -6,10 +6,8 @@ import { useNeynarContext } from "@neynar/react";
 import { useMuteState } from '@/hooks/useMuteState';
 import { useVideoData } from '@/hooks/useVideoData';
 import { useVideoScrolling } from '@/hooks/useVideoScrolling';
-import VideoFeedHeader from './VideoFeedHeader';
 import ChannelSelector from './ChannelSelector';
 import VideoList from './VideoList';
-import VolumeControl from './VolumeControl';
 import Toast from './Toast';
 
 interface VideoFeedProps {
@@ -69,8 +67,6 @@ export default function VideoFeed({ initialVideos, initialCursor }: VideoFeedPro
 
   return (
     <div className={`relative w-full h-full overflow-hidden transition-opacity duration-300 ${isHydrated ? 'opacity-100' : 'opacity-0'}`}>
-      <VideoFeedHeader />
-
       {user && (
         <ChannelSelector
           channels={channels}
@@ -88,9 +84,8 @@ export default function VideoFeed({ initialVideos, initialCursor }: VideoFeedPro
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
+        onToggleMute={() => setIsMuted(!isMuted)}
       />
-
-      <VolumeControl isMuted={isMuted} onToggle={() => setIsMuted(!isMuted)} />
 
       <Toast message={toastMessage} show={showToast} />
     </div>

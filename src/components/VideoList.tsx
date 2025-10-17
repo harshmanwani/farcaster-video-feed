@@ -13,6 +13,7 @@ interface VideoListProps {
   onTouchStart: (e: React.TouchEvent) => void;
   onTouchMove: (e: React.TouchEvent) => void;
   onTouchEnd: (e: React.TouchEvent) => void;
+  onToggleMute: () => void;
 }
 
 export default function VideoList({
@@ -24,6 +25,7 @@ export default function VideoList({
   onTouchStart,
   onTouchMove,
   onTouchEnd,
+  onToggleMute,
 }: VideoListProps) {
 
   const visibleIndices = Array.from(
@@ -93,6 +95,7 @@ export default function VideoList({
               video={video}
               isActive={index === currentIndex}
               isMuted={isMuted}
+              onToggleMute={onToggleMute}
             />
           </div>
         );

@@ -1,6 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Providers from "@/components/Providers";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/AppSidebar";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import AppHeader from "@/components/AppHeader";
 
 export const metadata: Metadata = {
   title: "Farcaster Video Feed",
@@ -25,7 +29,15 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://imagedelivery.net" />
       </head>
       <body className="antialiased">
-        <Providers>{children}</Providers>
+        <ThemeProvider defaultTheme="system" storageKey="fartok-theme">
+          <Providers>
+            <SidebarProvider>
+              <AppSidebar />
+              <AppHeader />
+              {children}
+            </SidebarProvider>
+          </Providers>
+        </ThemeProvider>
       </body>
     </html>
   );

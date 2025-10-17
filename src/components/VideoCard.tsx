@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import { VideoFeedItem } from '@/types/neynar';
 import VideoPlayer from './VideoPlayer';
 import VolumeControl from './VolumeControl';
@@ -24,9 +25,9 @@ function formatCount(count: number): string {
   return count.toString();
 }
 
-export default function VideoCard({ video, isActive, isMuted, onTogglePlay, onToggleMute }: VideoCardProps) {
+function VideoCard({ video, isActive, isMuted, onTogglePlay, onToggleMute }: VideoCardProps) {
   return (
-    <div className="relative w-full h-full bg-black">
+    <div className="relative w-full h-full bg-white dark:bg-black overflow-hidden">
       <VideoPlayer
         video={video}
         isActive={isActive}
@@ -35,7 +36,7 @@ export default function VideoCard({ video, isActive, isMuted, onTogglePlay, onTo
       />
 
       {onToggleMute && (
-        <div className="absolute top-4 left-4 z-10">
+        <div className="absolute top-6 left-6 z-10">
           <VolumeControl isMuted={isMuted} onToggle={onToggleMute} />
         </div>
       )}
@@ -53,9 +54,9 @@ export default function VideoCard({ video, isActive, isMuted, onTogglePlay, onTo
         </div>
       </div>
 
-      <div className="absolute right-4 bottom-24 lg:bottom-20 flex flex-col gap-4 items-center pointer-events-auto">
-        <button className="flex flex-col items-center gap-1">
-          <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white bg-gray-700">
+      <div className="absolute right-4 bottom-24 lg:bottom-20 flex flex-col gap-5 items-center pointer-events-auto">
+        <button className="flex flex-col items-center gap-1 hover:scale-110 transition-transform">
+          <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white bg-gray-700 shadow-lg">
             {video.author.avatarUrl ? (
               <Image
                 src={video.author.avatarUrl}
@@ -75,21 +76,25 @@ export default function VideoCard({ video, isActive, isMuted, onTogglePlay, onTo
           </div>
         </button>
 
-        <button className="flex flex-col items-center gap-1 text-white">
-          <Heart className="w-8 h-8" fill="currentColor" />
-          <span className="text-xs">{formatCount(video.stats.likes)}</span>
+        <button className="flex flex-col items-center gap-1 text-white hover:scale-110 transition-transform">
+          <div className="relative">
+            <Heart className="w-9 h-9 drop-shadow-lg" fill="currentColor" />
+          </div>
+          <span className="text-xs font-semibold drop-shadow-md">{formatCount(video.stats.likes)}</span>
         </button>
 
-        <button className="flex flex-col items-center gap-1 text-white">
-          <MessageCircle className="w-8 h-8" />
-          <span className="text-xs">{formatCount(video.stats.replies)}</span>
+        <button className="flex flex-col items-center gap-1 text-white hover:scale-110 transition-transform">
+          <MessageCircle className="w-9 h-9 drop-shadow-lg" />
+          <span className="text-xs font-semibold drop-shadow-md">{formatCount(video.stats.replies)}</span>
         </button>
 
-        <button className="flex flex-col items-center gap-1 text-white">
-          <Share2 className="w-8 h-8" />
+        <button className="flex flex-col items-center gap-1 text-white hover:scale-110 transition-transform">
+          <Share2 className="w-9 h-9 drop-shadow-lg" />
         </button>
       </div>
     </div>
   );
 }
+
+export default memo(VideoCard);
 

@@ -167,11 +167,15 @@ export default function VideoPlayer({ video, isActive, isMuted, onTogglePlay }: 
   };
 
   return (
-    <div className="absolute inset-0 bg-black pointer-events-none">
-      <div className="absolute inset-0 pointer-events-auto" onClick={handleClick}>
+    <div className="absolute inset-0 bg-white dark:bg-black pointer-events-none">
+      <div 
+        className="absolute inset-0 pointer-events-auto" 
+        onClick={handleClick}
+        style={{ WebkitTapHighlightColor: 'transparent' }}
+      >
         <video
           ref={videoRef}
-          className="w-full h-full object-contain"
+          className="w-full h-full object-cover"
           loop
           playsInline
           preload="metadata"
@@ -179,6 +183,7 @@ export default function VideoPlayer({ video, isActive, isMuted, onTogglePlay }: 
           onLoadStart={handleLoadStart}
           onCanPlay={handleCanPlay}
           onError={handleError}
+          style={{ willChange: isActive ? 'auto' : 'contents' }}
         />
       </div>
 

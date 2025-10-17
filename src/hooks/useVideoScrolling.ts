@@ -33,7 +33,7 @@ export function useVideoScrolling({ videosLength, containerRef }: UseVideoScroll
         scrollAccumulator = 0;
       }, 150);
 
-      if (Math.abs(scrollAccumulator) < 80) return;
+      if (Math.abs(scrollAccumulator) < 100) return;
 
       isScrolling.current = true;
       scrollAccumulator = 0;
@@ -46,7 +46,7 @@ export function useVideoScrolling({ videosLength, containerRef }: UseVideoScroll
 
       setTimeout(() => {
         isScrolling.current = false;
-      }, 500);
+      }, 400);
     };
 
     container.addEventListener('wheel', handleWheel, { passive: false });
@@ -84,7 +84,7 @@ export function useVideoScrolling({ videosLength, containerRef }: UseVideoScroll
     const touchEndY = e.changedTouches[0].clientY;
     const diff = touchStartY.current - touchEndY;
 
-    if (Math.abs(diff) < 60) return;
+    if (Math.abs(diff) < 50) return;
 
     isScrolling.current = true;
 
@@ -96,7 +96,7 @@ export function useVideoScrolling({ videosLength, containerRef }: UseVideoScroll
 
     setTimeout(() => {
       isScrolling.current = false;
-    }, 500);
+    }, 400);
   };
 
   return {

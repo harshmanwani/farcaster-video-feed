@@ -71,35 +71,43 @@ export default function VideoList({
   }, [currentIndex, visibleIndices, videos, containerRef]);
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full h-full lg:max-w-[600px] lg:mx-auto"
-      style={{ touchAction: currentIndex === 0 ? 'auto' : 'none' }}
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
-    >
-      {visibleIndices.map((index) => {
-        const video = videos[index];
-        const offset = index - currentIndex;
-        
-        return (
-          <div
-            key={video.id}
-            className="absolute inset-0 w-full h-full transition-transform duration-500 ease-in-out"
-            style={{
-              transform: `translateY(${offset * 100}%)`,
-            }}
-          >
-            <VideoCard
-              video={video}
-              isActive={index === currentIndex}
-              isMuted={isMuted}
-              onToggleMute={onToggleMute}
-            />
-          </div>
-        );
-      })}
+    <div className="relative w-full h-full flex items-center justify-center bg-white dark:bg-black">
+      <div
+        ref={containerRef}
+        className="relative w-full h-full lg:max-w-[min(100vw,calc(100vh*9/16))] mx-auto overflow-hidden lg:rounded-3xl bg-white dark:bg-black"
+        style={{ 
+          touchAction: currentIndex === 0 ? 'auto' : 'none',
+          aspectRatio: '9/16',
+          maxHeight: '100vh'
+        }}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
+        {visibleIndices.map((index) => {
+          const video = videos[index];
+          const offset = index - currentIndex;
+          
+          return (
+            <div
+              key={video.id}
+              className="absolute inset-0 w-full h-full"
+              style={{
+                transform: `translate3d(0, ${offset * 100}%, 0)`,
+                transition: 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                willChange: offset !== 0 ? 'transform' : 'auto',
+              }}
+            >
+              <VideoCard
+                video={video}
+                isActive={index === currentIndex}
+                isMuted={isMuted}
+                onToggleMute={onToggleMute}
+              />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

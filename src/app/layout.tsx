@@ -5,6 +5,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import AppHeader from "@/components/AppHeader";
+import MobileSignInButton from "@/components/MobileSignInButton";
 
 export const metadata: Metadata = {
   title: "Farcaster Video Feed",
@@ -34,6 +35,7 @@ export default function RootLayout({
             <SidebarProvider>
               <AppSidebar />
               <AppHeader />
+              <MobileSignInButton />
               {children}
             </SidebarProvider>
           </Providers>

@@ -3,8 +3,7 @@ import VideoFeed from '@/components/VideoFeed';
 import StaticVideoCard from '@/components/StaticVideoCard';
 import { SidebarInset } from '@/components/ui/sidebar';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 60;
+export const revalidate = 30;
 
 export default async function Home() {
   try {

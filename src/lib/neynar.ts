@@ -23,19 +23,12 @@ export async function fetchVideoFeed(
   nextCursor: string | null;
 }> {
   const params = new URLSearchParams({
-    feed_type: feedType === 'trending' ? 'filter' : 'following',
+    feed_type: 'filter',
+    filter_type: 'embed_types',
+    embed_types: 'video',
     limit: '100',
     with_recasts: 'true',
   });
-  
-  if (feedType === 'trending') {
-    params.append('filter_type', 'embed_types');
-    params.append('embed_types', 'video');
-  }
-  
-  if (feedType === 'following' && fid) {
-    params.append('fid', fid.toString());
-  }
 
   if (cursor) {
     params.append('cursor', cursor);
@@ -45,7 +38,7 @@ export async function fetchVideoFeed(
     headers: {
       'x-api-key': NEYNAR_API_KEY,
     },
-    next: { revalidate: 60 },
+    next: { revalidate: 30 },
   });
 
   if (!response.ok) {
@@ -150,7 +143,7 @@ export async function fetchChannelVideoFeed(
     headers: {
       'x-api-key': NEYNAR_API_KEY,
     },
-    next: { revalidate: 60 },
+    next: { revalidate: 30 },
   });
 
   if (!response.ok) {

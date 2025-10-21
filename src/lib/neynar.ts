@@ -15,9 +15,7 @@ function optimizeImageUrl(url: string, width = 828): string {
 }
 
 export async function fetchVideoFeed(
-  cursor?: string | null,
-  feedType: 'trending' | 'following' = 'trending',
-  fid?: number
+  cursor?: string | null
 ): Promise<{
   videos: VideoFeedItem[];
   nextCursor: string | null;
@@ -38,7 +36,7 @@ export async function fetchVideoFeed(
     headers: {
       'x-api-key': NEYNAR_API_KEY,
     },
-    next: { revalidate: 30 },
+    cache: 'no-store',
   });
 
   if (!response.ok) {

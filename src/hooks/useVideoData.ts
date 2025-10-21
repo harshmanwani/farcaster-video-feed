@@ -66,7 +66,7 @@ export function useVideoData({
       setIsLoading(true);
       try {
         const channelParam = selectedChannel ? `&parentUrl=${encodeURIComponent(selectedChannel.parent_url)}` : '';
-        const url = `/api/videos?feedType=trending${channelParam}`;
+        const url = `/api/videos${channelParam}`;
         const response = await fetch(url);
         const data = await response.json();
         
